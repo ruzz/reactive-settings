@@ -1,0 +1,12 @@
+{
+    "name": "reactive-variable-manager",
+    "description": "a reactive settings class based off reactive variables (and reactive variable manager)",
+    "homepage": "https://github.com/ruzz/reactive-settings.git",
+    "author": "imruzz <ruzz@brightmonkey.ca> (http://brightmonkey.ca)",
+    "version": "0.0.1",
+    "git": "https://github.com/ruzz/reactive-settings.git",
+    "packages": {
+        "reactive-variable": {},
+        "reactive-variable-manager": {}
+    }
+}
