@@ -1,5 +1,5 @@
 /** @license
- * ReactiveSettings <https://github.com/ruzz/reactive-settings.git>
+ * ReactiveSetting <https://github.com/ruzz/reactive-settings.git>
  * Released under the MIT license
  * Author: i.m. ruzz
  * Version: 0.0.1
@@ -9,21 +9,30 @@
     var root = this;
 
     /**
-     * reactive settings manager class
-     * @name _ReactiveSettings
+     * reactive setting  class
+     * @name _ReactiveSetting
      * @author i.m.ruzz
      * @constructor
      */
-    function _ReactiveSettings(config) {
+    function _ReactiveSetting(config) {
         var self = this;
+        this.index = {};
         this._config = config || { initialize: [] };
-        this._reactiveStore = config._reactiveStore || {};
+        this._reactiveStore = config.store || {};
+
+        this._config.base = this._reactiveStore.get(config.index);
+
+        if (_.isObject(this._config.base) ) {
+            _.extend(this.index, this._config.base);
+        } else {
+            this.index[this._config.index] = this._config.base;
+        }
 
     }
 
-    _ReactiveSettings.prototype = {
+    _ReactiveSetting.prototype = {
         /**
-         * _ReactiveSettings Version Number
+         * _ReactiveSetting Version Number
          * @type String
          * @const
          */
@@ -42,14 +51,15 @@
         },
 
         /**
-         * gets the desired reactive variable
-         * @param {string}  name of the registered reactive variable
-         * @return {?} returns the value stored or null
+         * saves the currently loaded reactive variable
+         * @public
          */
-        get: function (name) {
-            return new ReactiveSetting({
-                index: name, store: this._reactiveStore});
+        save: function() {
+            this._reactiveStore.set(this._config.index, this.index);
         }
+
+
+
     };
 
 
@@ -59,17 +69,17 @@
     /**
      * Reactive Settings namespace
      * @namespace
-     * @name ReactiveSettings
+     * @name ReactiveSetting
      */
-    var ReactiveSettings = _ReactiveSettings;
+    var ReactiveSetting = _ReactiveSetting;
 
     if (typeof define === 'function' && define.amd) { //AMD
         define(function () {
-            return ReactiveSettings;
+            return ReactiveSetting;
         });
     } else if (typeof module !== 'undefined' && module.exports) { //node
-        module.exports = ReactiveSettings;
+        module.exports = ReactiveSetting;
     } else {
-        global['ReactiveSettings'] = ReactiveSettings;
+        global['ReactiveSetting'] = ReactiveSetting;
     }
 }(this));

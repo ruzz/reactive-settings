@@ -4,6 +4,7 @@ Package.describe({
 
 Package.on_use(function (api, where) {
     api.add_files('reactive-settings.js', ['client', 'server']);
+    api.add_files('reactive-setting.js', ['client', 'server']);
 });
 
 Package.on_test(function (api) {
